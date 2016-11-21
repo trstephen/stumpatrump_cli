@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": false,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb-base", "plugin:lodash/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "plugins": [
+    "lodash"
+  ],
+  "rules": {
+    "arrow-parens": 0,
+    "import/newline-after-import": 0,
+    "import/no-dynamic-require": 0,
+    "max-len": [2, { "code": 120 }],
+    "no-console": 0
+  }
+}
