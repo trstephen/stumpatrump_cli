@@ -2,23 +2,24 @@ const inquirer = require('inquirer');
 let correctGuessCount = 0;
 let totalGames = 0;
 
-const playAgainQuestion = [
-  {
-    type: 'confirm',
-    name: 'playAgain',
-    message: 'Do you want to play again?',
-    default: true,
-  },
-];
-
-function createTweetQuestion(tweetMessage) {
-  return {
-    type: 'confirm',
-    name: 'isTrumpGuess',
-    message: `Here's a tweet: ${tweetMessage}`,
-    default: true,
-  };
-}
+const questions = {
+  tweetAuthenticity: [
+    {
+      type: 'confirm',
+      name: 'isTrumpGuess',
+      message: 'Is this a tweet from Donald Trump?',
+      default: true,
+    },
+  ],
+  playAgain: [
+    {
+      type: 'confirm',
+      name: 'playAgain',
+      message: 'Do you want to play again?',
+      default: true,
+    },
+  ],
+};
 
 function getRandomTweet() {
   // TODO: Use GET /tweets
@@ -38,9 +39,10 @@ function getTweetAuthor(tweetId) {
 
 function game() {
   const tweet = getRandomTweet();
-  const tweetQuestion = createTweetQuestion(tweet.text);
+  console.log('Here’s a random tweet');
+  console.log(tweet.text);
 
-  inquirer.prompt(tweetQuestion)
+  inquirer.prompt(questions.tweetAuthenticity)
     .then((answers) => [
       answers,
       getTweetAuthor(tweet.id),
@@ -59,7 +61,7 @@ function game() {
       console.log(`Your score is ${correctGuessCount}/${totalGames}`);
     })
     .then(() => {
-      inquirer.prompt(playAgainQuestion)
+      inquirer.prompt(questions.playAgain)
         .then((answers) => {
           if (answers.playAgain) {
             game();
