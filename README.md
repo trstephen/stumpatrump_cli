@@ -4,6 +4,10 @@ Interactive CLI for a guessing game that challenges you to determine which tweet
 
 Part of the client-server game project for [CENG 356](http://www.ece.uvic.ca/~ceng356/) at UVic.
 
+**Demo interaction**
+
+![game.gif](./docs/game.gif)
+
 ### Installation
 **No service interaction at this point. Game is mocked!**
 
