@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 const axios = require('axios');
+const chalk = require('chalk');
+const moment = require('moment');
 let correctGuessCount = 0;
 let totalGames = 0;
 
@@ -48,7 +50,9 @@ function getTweetAuthor(tweetId) {
 function game() {
   getRandomTweet()
     .then(tweet => {
-      console.log(tweet.text);
+      const tweetTime = moment(tweet.create_at).format('MMM Do YYYY, h:mm:ss a');
+      console.log(`\n${tweet.text}`);
+      console.log(chalk.dim(tweetTime));
 
       return tweet;
     })
@@ -58,15 +62,14 @@ function game() {
         .then(answers => {
           const isCorrectGuess = answers.isTrumpGuess === tweetAuthor.isTrump;
 
-          console.log(`The author is ${tweetAuthor.screenName}`);
-
-          const feedbackMsg = isCorrectGuess ? 'Beautiful. Amazing.' : 'Sad!';
-          console.log(feedbackMsg);
-
           totalGames += 1;
           if (isCorrectGuess) correctGuessCount += 1;
 
-          console.log(`Your score is ${correctGuessCount}/${totalGames}`);
+          const feedbackMsg = isCorrectGuess
+            ? chalk.green('Beautiful. Amazing.')
+            : chalk.red('Sad!');
+
+          console.log(`The author is @${tweetAuthor.screenName} ${feedbackMsg}`);
         })
         .then(() => {
           inquirer.prompt(questions.playAgain)
@@ -74,8 +77,8 @@ function game() {
               if (answers.playAgain) {
                 game();
               } else {
-                console.log(`Your final score is ${correctGuessCount}/${totalGames}`);
-                console.log('Go out there and make America great!!');
+                console.log(`Your final score is ${correctGuessCount}/${totalGames}\n`);
+                console.log(chalk.bold('Go out there and make America great!!\n'));
               }
             });
         });
@@ -83,6 +86,8 @@ function game() {
     .catch(console.error);
 }
 
-console.log('Welcome to Stump-A-Trump~');
-console.log('Here’s a random tweet');
+console.log(chalk.bold('Welcome to Stump-A-Trump'));
+console.log('Which of these tweets are from President elect Donald J. Trump ' +
+            'and which are from parody accounts?');
+
 game();
