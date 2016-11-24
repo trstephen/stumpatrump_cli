@@ -7,7 +7,7 @@ Part of the client-server game project for [CENG 356](http://www.ece.uvic.ca/~ce
 ![game.gif](./docs/game.gif)
 
 ### Installation
-Make sure the `stumpatrump_service` is running (repo TBD).
+Make sure the `stumpatrump_service` is running ([repo](https://github.com/trstephen/stumpatrump_service)).
 
 Install the node version in [.nvmrc](.nvmrc). You can use [nvm](https://github.com/creationix/nvm) to automatically load the correct node version. It's cool and good.
 ```shell
