@@ -1,7 +1,7 @@
+const _ = require('lodash');
 const inquirer = require('inquirer');
 const axios = require('axios');
 const chalk = require('chalk');
-const moment = require('moment');
 let correctGuessCount = 0;
 let totalGames = 0;
 
@@ -50,7 +50,8 @@ function getTweetAuthor(tweetId) {
 function game() {
   getRandomTweet()
     .then(tweet => {
-      const tweetTime = moment(tweet.create_at).format('MMM Do YYYY, h:mm:ss a');
+      const tweetTime = _.replace(tweet.created_at, '+0000 ', '');
+
       console.log(`\n${tweet.text}`);
       console.log(chalk.dim(tweetTime));
 
